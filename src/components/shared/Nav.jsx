@@ -5,6 +5,9 @@ import Logo from "../../assets/images/logo.jpeg";
 
 const Nav = () => {
   const [scroll, setscroll] = useState(false);
+  // state for showing options on click profile icon
+
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     const handleScrool = () => {
@@ -28,7 +31,7 @@ const Nav = () => {
         scroll ? "bg-black text-white fixed w-full top-0" : "bg-transparent text-black"
       } transition-colors duration-300`}
     >
-      <nav className="  max-w-[88rem] mx-auto ">
+      <nav className="  max-w-[86rem] mx-auto ">
         <div className=" mx-auto px-2 md:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
@@ -56,12 +59,25 @@ const Nav = () => {
             </div>
 
             {/* Icons and Buttons Section */}
-            <div className="flex items-center justify-center gap-5 ">
-              <FaCartArrowDown className="text-2xl cursor-pointer" />
-              <CgProfile className="text-2xl" />
+            <div className="flex relative items-center justify-center gap-5 ">
+              <FaCartArrowDown className="text-3xl cursor-pointer" />
+              <CgProfile onClick={() => setShowOptions((prev) => !prev)} className="text-3xl cursor-pointer" />
+              {/* dropdown on click profile icon */}
 
-              <button className=" ">Login</button>
-              <p className="text-gray-400">|</p>
+              <div
+                className={`absolute transition-opacity duration-300 top-10 left-10 ${
+                  showOptions ? "opacity-0" : "opacity-100"
+                } `}
+              >
+                <ul className="w-36 ">
+                  <li className="bg-red-300 px-3 py-2">My Profile</li>
+                  <li className="bg-red-300 px-3 py-2">Settings</li>
+                  <li className="bg-red-300 px-3 py-2">Logout</li>
+                </ul>
+              </div>
+
+              <button className=" pr-4 border-r-2 ">Login</button>
+              {/* <p className="text-gray-400">|</p> */}
               <button className="">Register</button>
             </div>
           </div>
