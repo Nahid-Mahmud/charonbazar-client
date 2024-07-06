@@ -34,7 +34,7 @@ const Nav = () => {
         scroll ? "bg-black text-white fixed w-full top-0" : "bg-transparent text-black"
       } transition-colors duration-300`}
     >
-      <nav className="  xl:max-w-[86rem] max-w-[95vw] mx-auto  ">
+      <nav className="2xl:max-w-[86rem] max-w-[95vw] mx-auto  ">
         <div className=" mx-auto px-2 md:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
