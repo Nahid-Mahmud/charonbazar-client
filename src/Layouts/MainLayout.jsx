@@ -11,7 +11,7 @@ const MainLayout = () => {
       <div>
         <Nav />
       </div>
-      <div className="max-w-[86rem] w-full mx-auto">
+      <div className="lg:max-w-[86rem] max-w-[95vw] mx-auto">
         <Outlet />
       </div>
     </div>
