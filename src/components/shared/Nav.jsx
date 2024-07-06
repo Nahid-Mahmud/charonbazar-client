@@ -66,13 +66,13 @@ const Nav = () => {
 
               <div
                 className={`absolute transition-opacity duration-300 top-10 left-10 ${
-                  showOptions ? "opacity-0" : "opacity-100"
+                  showOptions ? "opacity-100" : "opacity-0"
                 } `}
               >
-                <ul className="w-36 ">
-                  <li className="bg-red-300 px-3 py-2">My Profile</li>
-                  <li className="bg-red-300 px-3 py-2">Settings</li>
-                  <li className="bg-red-300 px-3 py-2">Logout</li>
+                <ul className="w-36 flex flex-col  gap-2">
+                  <li className="bg-red-300 px-3 py-2 rounded-md border border-gray-400">My Profile</li>
+                  <li className=" px-3 py-2 rounded-md border border-gray-400">Settings</li>
+                  <li className=" px-3 py-2 rounded-md border border-gray-400">Logout</li>
                 </ul>
               </div>
 
