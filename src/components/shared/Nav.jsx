@@ -14,7 +14,7 @@ const Nav = () => {
 
   useEffect(() => {
     const handleScrool = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 80) {
         setscroll(true);
       } else {
         setscroll(false);
@@ -32,7 +32,7 @@ const Nav = () => {
     <div
       className={`${
         scroll ? "bg-black text-white fixed w-full top-0" : "bg-transparent text-black"
-      } transition-colors duration-300`}
+      } transition-all duration-300`}
     >
       <nav className="2xl:max-w-[86rem] max-w-[95vw] mx-auto  ">
         <div className=" mx-auto px-2 md:px-0">
