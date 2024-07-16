@@ -4,9 +4,13 @@ import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Link } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
+import { useAuth } from "../../hooks";
+
 const Login = () => {
   // state for showing password
   const [showPassword, setShowPassword] = useState(false);
+
+  const { signinUser } = useAuth();
 
   //   state for handeling input fields
 
@@ -20,6 +24,19 @@ const Login = () => {
   };
   const handleLogin = (event) => {
     event.preventDefault();
+
+    const { email, password } = inputFields;
+
+    // Add login logic here
+    signinUser(email, password)
+      .then((currentUser) => {
+        if (currentUser) {
+          alert("User logged in successfully");
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (

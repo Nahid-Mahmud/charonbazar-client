@@ -3,7 +3,7 @@ import { FaCartArrowDown, FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Logo from "../../assets/images/logo.jpeg";
 import { Link } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { useAuth } from "../../hooks";
 
 const Nav = () => {
   const [scroll, setscroll] = useState(false);
@@ -15,6 +15,8 @@ const Nav = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const ref = useRef(null);
+
+  const { singoutUser } = useAuth();
 
   useEffect(() => {
     const handleScrool = () => {
@@ -119,7 +121,10 @@ const Nav = () => {
                   <li className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150">
                     Settings
                   </li>
-                  <li className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150">
+                  <li
+                    onClick={() => singoutUser()}
+                    className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150"
+                  >
                     Logout
                   </li>
                 </ul>

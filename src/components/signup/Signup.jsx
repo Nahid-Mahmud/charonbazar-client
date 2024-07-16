@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Link } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
+import { useAuth } from "../../hooks";
 
 const Signup = () => {
   // state for showing password
@@ -18,13 +19,36 @@ const Signup = () => {
     confirmPassword: "",
   });
 
+  // get signup function from Authcontext
+  const { signupUser } = useAuth();
+
+  // function for showing and hiding password
+
   const handleShowHidePassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSignup = (event) => {
     event.preventDefault();
+
+    const { name, email, password, confirmPassword } = inputFields;
+
     // Add registration logic here
+
+    if (password !== confirmPassword) {
+      alert("Password does not match");
+      return;
+    }
+
+    signupUser(email, password)
+      .then((currentUser) => {
+        if (currentUser) {
+          alert("User created successfully");
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (
