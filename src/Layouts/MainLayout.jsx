@@ -4,7 +4,7 @@ import SecondNav from "../components/shared/SecondNav";
 
 const MainLayout = () => {
   const { pathname } = useLocation();
-  const loginRegisterRoute = pathname === "/login" || pathname === "/register";
+  const loginRegisterRoute = pathname === "/login" || pathname === "/signup";
   return (
     <div>
       {!loginRegisterRoute && (
