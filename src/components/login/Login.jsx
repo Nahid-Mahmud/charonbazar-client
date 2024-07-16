@@ -3,6 +3,7 @@ import { IoMdEye } from "react-icons/io";
 import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Link } from "react-router-dom";
+import SigninWithGoogle from "../shared/SigninWithGoogle";
 const Login = () => {
   // state for showing password
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen items-center pt-20 flex flex-wrap flex-row-reverse justify-center gap-5">
+    <div className="h-screen items-center pt-20 flex flex-wrap flex-row-reverse justify-center gap-10">
       <div className="hidden lg:inline-flex">
         <Player
           autoplay
@@ -32,7 +33,7 @@ const Login = () => {
           // style={{ height: "300px", width: "300px" }}
         ></Player>
       </div>
-      <div className="w-full mx-auto border  max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
+      <div className="w-full  border  max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
         {/* <h1 className="text-2xl font-bold text-center">Login</h1> */}
         <p className="text-2xl font-light">Welcome to Charon Bazar!</p>
         <form onSubmit={handleLogin} className="space-y-6">
@@ -91,9 +92,12 @@ const Login = () => {
             Login
           </button>
         </form>
+        {/* google sign in */}
+
+        <SigninWithGoogle>Signin With Google</SigninWithGoogle>
         <p className="text-xs text-center sm:px-6 dark:text-gray-600">
           Don't have an account?
-          <Link rel="noopener noreferrer"  to={"/signup"} className="underline dark:text-gray-800">
+          <Link rel="noopener noreferrer" to={"/signup"} className="underline dark:text-gray-800">
             Sign up
           </Link>
         </p>

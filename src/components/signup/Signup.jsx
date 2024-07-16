@@ -3,6 +3,7 @@ import { IoMdEye } from "react-icons/io";
 import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Link } from "react-router-dom";
+import SigninWithGoogle from "../shared/SigninWithGoogle";
 
 const Signup = () => {
   // state for showing password
@@ -143,6 +144,7 @@ const Signup = () => {
             Signup
           </button>
         </form>
+        <SigninWithGoogle>Signup With Google</SigninWithGoogle>
         <p className="text-xs text-center sm:px-6 dark:text-gray-600">
           Already have an account?
           <Link rel="noopener noreferrer" to={"/login"} className="underline dark:text-gray-800">
