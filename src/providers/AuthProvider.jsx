@@ -1,7 +1,10 @@
-import React from "react";
+import { AuthContext } from "../contexts";
 
-const AuthProvider = () => {
-  return <div>Auth Provider</div>;
+const AuthProvider = ({ children }) => {
+  const autContextValues = {
+    name: "nahid",
+  };
+  return <AuthContext.Provider value={autContextValues}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

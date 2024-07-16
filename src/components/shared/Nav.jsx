@@ -3,6 +3,7 @@ import { FaCartArrowDown, FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Logo from "../../assets/images/logo.jpeg";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Nav = () => {
   const [scroll, setscroll] = useState(false);

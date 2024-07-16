@@ -7,6 +7,7 @@ import SigninWithGoogle from "../shared/SigninWithGoogle";
 
 const Signup = () => {
   // state for showing password
+
   const [showPassword, setShowPassword] = useState(false);
 
   // state for handling input fields
@@ -21,10 +22,6 @@ const Signup = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleShowHideConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
   const handleSignup = (event) => {
     event.preventDefault();
     // Add registration logic here
@@ -32,10 +29,10 @@ const Signup = () => {
 
   return (
     <div className="h-screen items-center pt-20 w-full mx-auto flex flex-wrap justify-center gap-10">
-      <div className="hidden lg:inline-flex">
+      <div className="hidden  lg:inline-flex ">
         <Player
           autoplay
-          className="h-full w-full"
+          className="xl:h-[40rem] w-full "
           loop
           src="https://lottie.host/aaeaf1c7-521a-43bc-9a71-744b7f9fd4f6/VP7YbbnUQO.json"
         ></Player>
@@ -126,14 +123,14 @@ const Signup = () => {
               !showPassword ? (
                 <span>
                   <IoMdEye
-                    onClick={handleShowHideConfirmPassword}
+                    onClick={handleShowHidePassword}
                     className="text-2xl absolute right-3 top-9 cursor-pointer"
                   />
                 </span>
               ) : (
                 <span>
                   <IoEyeOff
-                    onClick={handleShowHideConfirmPassword}
+                    onClick={handleShowHidePassword}
                     className="text-2xl absolute right-3 top-9 cursor-pointer"
                   />
                 </span>
