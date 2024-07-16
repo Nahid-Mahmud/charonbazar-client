@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCartArrowDown, FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Logo from "../../assets/images/logo.jpeg";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [scroll, setscroll] = useState(false);
@@ -12,9 +13,11 @@ const Nav = () => {
 
   const [showSearch, setShowSearch] = useState(false);
 
+  const ref = useRef(null);
+
   useEffect(() => {
     const handleScrool = () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 20) {
         setscroll(true);
       } else {
         setscroll(false);
@@ -28,18 +31,35 @@ const Nav = () => {
     };
   }, []);
 
+  // useEffect for closing dropdown on click outside
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setShowOptions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       className={`${
-        scroll ? "bg-black text-white fixed w-full top-0" : "bg-transparent text-black"
-      } transition-all duration-300`}
+        scroll ? "fixed w-full top-0 bg-white" : "bg-transparent text-black"
+      } transition-all duration-300 ease-in-out z-50`}
     >
-      <nav className="2xl:max-w-[86rem] max-w-[95vw] mx-auto  ">
+      <nav className="2xl:max-w-[86rem] max-w-[95vw] mx-auto px-2 rounded  ">
         <div className=" mx-auto px-2 md:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
-            <div className="">
+            <div className="flex items-center gap-3">
               <img className="h-12 rounded-full w-auto" src={Logo} alt="Logo" />
+              <span className="text-5xl font-bold text-[#3d8ec7]">CB</span>
             </div>
 
             {/* Large Search Bar Section */}
@@ -78,7 +98,7 @@ const Nav = () => {
             </div>
 
             {/* Icons and Buttons Section */}
-            <div className="flex relative items-center justify-center gap-5 ">
+            <div ref={ref} className="flex relative items-center justify-center gap-5 ">
               <FaCartArrowDown className="md:text-3xl text-2xl cursor-pointer" />
               <CgProfile
                 onClick={() => setShowOptions((prev) => !prev)}
@@ -89,18 +109,24 @@ const Nav = () => {
               <div
                 className={`absolute transition-opacity duration-300 top-10 left-10 ${
                   showOptions ? "opacity-100" : "opacity-0"
-                } `}
+                } ${scroll ? "border-0" : "border rounded overflow-hidden"}`}
               >
-                <ul className="w-36 flex flex-col ">
-                  <li className="bg-red-300 px-3 py-2 rounded-md border-b drop-shadow-md border-gray-400">
+                <ul className="w-36 flex flex-col bg-white gap-3  rounded py-2  px-2 mt-3 overflow-hidden">
+                  <li className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150">
                     My Profile
                   </li>
-                  <li className=" px-3 py-2 rounded-md border-b drop-shadow-md border-gray-400">Settings</li>
-                  <li className=" px-3 py-2 rounded-md border-b drop-shadow-md border-gray-400">Logout</li>
+                  <li className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150">
+                    Settings
+                  </li>
+                  <li className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150">
+                    Logout
+                  </li>
                 </ul>
               </div>
 
-              <button className=" pr-4 border-r-2 ">Login</button>
+              <Link to={"/login"}>
+                <button className=" pr-4 border-r-2 ">Login</button>
+              </Link>
               {/* <p className="text-gray-400">|</p> */}
               <button className="">Register</button>
             </div>
