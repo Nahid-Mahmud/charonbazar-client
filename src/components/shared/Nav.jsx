@@ -128,7 +128,9 @@ const Nav = () => {
                 <button className=" pr-4 border-r-2 ">Login</button>
               </Link>
               {/* <p className="text-gray-400">|</p> */}
-              <button className="">Register</button>
+              <Link to={"/signup"}>
+                <button className="">Signup</button>
+              </Link>
             </div>
           </div>
         </div>
