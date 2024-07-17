@@ -6,13 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
 import { useAuth } from "../../hooks";
 import { toast } from "react-toastify";
+import Spinner from "../shared/spinner/Spinner";
 
 const Login = () => {
   // state for showing password
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const { signinUser } = useAuth();
+  const { signinUser, userLoading, setUserLoading } = useAuth();
 
   //   state for handeling input fields
 
@@ -29,6 +30,15 @@ const Login = () => {
 
     const { email, password } = inputFields;
 
+    // check for empty fields
+    if (!email || !password) {
+      toast?.warn("Please fill all fields", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     // Add login logic here
     signinUser(email, password)
       .then((currentUser) => {
@@ -41,6 +51,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        setUserLoading(false);
         toast?.error(err.message, {
           position: "top-right",
           autoClose: 3000,
@@ -114,7 +125,15 @@ const Login = () => {
               )
             }
           </div>
-          <button className="bg-white  w-full mx-auto text-xl border-2 border-[#3e3e3e] transition-all duration-200 hover:scale-95  rounded-lg text-black px-6 py-3  hover:border-[#3d8ec7] cursor-pointer ">
+          <button
+            disabled={userLoading}
+            className="bg-white disabled:text-slate-400 relative  w-full mx-auto text-xl border-2 border-[#3e3e3e] transition-all duration-200 hover:scale-95  rounded-lg text-black px-6 py-3  hover:border-[#3d8ec7] cursor-pointer "
+          >
+            {userLoading ? (
+              <div className="absolute left-32 top-[0.95rem]">
+                <Spinner />
+              </div>
+            ) : null}
             Login
           </button>
         </form>

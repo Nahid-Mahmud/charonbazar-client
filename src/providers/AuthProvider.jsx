@@ -23,12 +23,14 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const signupUser = (email, password) => {
+    setUserLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // signIn user
 
   const signinUser = (email, password) => {
+    setUserLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -73,7 +75,8 @@ const AuthProvider = ({ children }) => {
     signinWithGoogle,
     updateUser,
     user,
-    userLoading
+    userLoading,
+    setUserLoading,
   };
   return <AuthContext.Provider value={autContextValues}>{children}</AuthContext.Provider>;
 };
