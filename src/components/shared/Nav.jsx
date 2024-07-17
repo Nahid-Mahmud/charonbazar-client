@@ -20,6 +20,7 @@ const Nav = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const ref = useRef(null);
+  const searchRef = useRef(null);
 
   const { singoutUser } = useAuth();
 
@@ -55,6 +56,21 @@ const Nav = () => {
     };
   }, []);
 
+  // useEffect for closing search bar on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearch(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // function for signing out user
 
   const handleSignout = () => {
@@ -68,7 +84,7 @@ const Nav = () => {
   return (
     <div
       className={`${
-        scroll ? "fixed w-full top-0 bg-white" : "bg-transparent text-black"
+        scroll ? "fixed w-full top-0 bg-white" : "bg-transparent text-black "
       } transition-all duration-300 ease-in-out z-50`}
     >
       <nav className="2xl:max-w-[86rem] max-w-[95vw] mx-auto px-2 rounded  ">
@@ -97,8 +113,9 @@ const Nav = () => {
                     <FaSearch className={"text-black text-2xl -ml-4"} />
                   </div>
                   <input
+                    ref={searchRef}
                     id="search"
-                    className={`" xl:w-[35rem] md:hidden  lg:w-[25rem] absolute top-6  pl-10 pr-3 py-2 border  rounded-md leading-5 placeholder-gray-500 focus:outline-none   focus:bg-white focus:border-gray-300 focus:placeholder-gray-400 sm:text-sm  duration-150 ease-in-out transition-opacity duration-300"
+                    className={`xl:w-[35rem] md:hidden  lg:w-[25rem] absolute  top-6 -left-36  pl-10 pr-3 py-2 border  rounded-md leading-5 placeholder-gray-500 focus:outline-none   focus:bg-white focus:border-gray-300 focus:placeholder-gray-400 sm:text-sm  ease-in-out transition-opacity duration-300
 
                     ${showSearch ? "opacity-100" : "opacity-0"}
 
@@ -138,7 +155,7 @@ const Nav = () => {
               {/* dropdown on click profile icon */}
 
               <div
-                className={`absolute transition-opacity duration-300 top-10 left-10 ${
+                className={`absolute transition-opacity duration-300 top-11 md:-left-14 -left-20 ${
                   showOptions ? "opacity-100" : "opacity-0"
                 } ${scroll ? "border-0" : "border rounded overflow-hidden"}`}
               >
