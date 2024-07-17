@@ -20,7 +20,7 @@ const Signup = () => {
   });
 
   // get signup function from Authcontext
-  const { signupUser } = useAuth();
+  const { signupUser, updateUser } = useAuth();
 
   // function for showing and hiding password
 
@@ -35,6 +35,13 @@ const Signup = () => {
 
     // Add registration logic here
 
+    // check for empty fields
+
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill all the fields");
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Password does not match");
       return;
@@ -43,7 +50,13 @@ const Signup = () => {
     signupUser(email, password)
       .then((currentUser) => {
         if (currentUser) {
-          alert("User created successfully");
+          updateUser(name)
+            .then(() => {
+              console.log("User updated successfully");
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
         }
       })
       .catch((error) => {

@@ -1,6 +1,25 @@
+import { useAuth } from "../../hooks";
+
 const SigninWithGoogle = ({ children }) => {
+  const { signinWithGoogle } = useAuth();
+
+  // google signin
+
+  const handleGoogleSignin = () => {
+    signinWithGoogle()
+      .then((user) => {
+        // console.log("user", user);
+        if (user) {
+          alert("User logged in successfully");
+        }npm 
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <button
+      onClick={handleGoogleSignin}
       aria-label="Login with Google"
       type="button"
       className="flex transition-all duration-200 hover:scale-95 items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600"
