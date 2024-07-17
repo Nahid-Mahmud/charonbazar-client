@@ -5,6 +5,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { Link } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
 import { useAuth } from "../../hooks";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   // state for showing password
@@ -61,6 +62,7 @@ const Signup = () => {
       })
       .catch((error) => {
         alert(error.message);
+        toast(`${error?.message}`);
       });
   };
 
