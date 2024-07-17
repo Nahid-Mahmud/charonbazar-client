@@ -59,8 +59,8 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("user form observer", currentUser);
       setUserLoading(false);
+      console.log("user form observer", currentUser);
     });
 
     return () => unSubscribe();
@@ -72,6 +72,8 @@ const AuthProvider = ({ children }) => {
     signinUser,
     signinWithGoogle,
     updateUser,
+    user,
+    userLoading
   };
   return <AuthContext.Provider value={autContextValues}>{children}</AuthContext.Provider>;
 };

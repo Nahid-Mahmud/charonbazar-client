@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
 
 const Nav = () => {
+  //  get user from context
+
+  const { user } = useAuth();
+
   const [scroll, setscroll] = useState(false);
   // state for showing options on click profile icon
   const [showOptions, setShowOptions] = useState(false);
@@ -101,12 +105,25 @@ const Nav = () => {
             </div>
 
             {/* Icons and Buttons Section */}
-            <div ref={ref} className="flex relative items-center justify-center gap-5 ">
+            <div className="flex relative items-center justify-center gap-5 ">
               <FaCartArrowDown className="md:text-3xl text-2xl cursor-pointer" />
-              <CgProfile
-                onClick={() => setShowOptions((prev) => !prev)}
-                className="md:text-3xl text-2xl cursor-pointer"
-              />
+              {user && (
+                <div ref={ref}>
+                  {user?.photoURL ? (
+                    <img
+                      onClick={() => setShowOptions((prev) => !prev)}
+                      className="md:h-7 md:w-7 h-6 w-6  w-auto rounded-full cursor-pointer"
+                      src={user?.photoURL}
+                      alt=""
+                    />
+                  ) : (
+                    <CgProfile
+                      onClick={() => setShowOptions((prev) => !prev)}
+                      className="md:text-3xl text-2xl cursor-pointer"
+                    />
+                  )}
+                </div>
+              )}
               {/* dropdown on click profile icon */}
 
               <div
