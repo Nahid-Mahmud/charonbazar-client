@@ -2,13 +2,15 @@ import { IoEyeOff } from "react-icons/io5";
 import { IoMdEye } from "react-icons/io";
 import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
 import { useAuth } from "../../hooks";
 import { toast } from "react-toastify";
 
 const Signup = () => {
   // state for showing password
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -50,6 +52,12 @@ const Signup = () => {
 
     signupUser(email, password)
       .then((currentUser) => {
+        navigate("/");
+        toast?.success("User registered successfully", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+
         if (currentUser) {
           updateUser(name)
             .then(() => {
@@ -62,7 +70,10 @@ const Signup = () => {
       })
       .catch((error) => {
         alert(error.message);
-        toast(`${error?.message}`);
+        toast.error(`${error?.message}`, {
+          position: "top-right",
+          autoClose: 3000,
+        });
       });
   };
 
@@ -180,7 +191,7 @@ const Signup = () => {
             Signup
           </button>
         </form>
-        <SigninWithGoogle>Signup With Google</SigninWithGoogle>
+        <SigninWithGoogle toastMessage={"Signup successfull"}>Signup With Google</SigninWithGoogle>
         <p className="text-xs text-center sm:px-6 dark:text-gray-600">
           Already have an account?
           <Link rel="noopener noreferrer" to={"/login"} className="underline dark:text-gray-800">

@@ -2,13 +2,15 @@ import { IoEyeOff } from "react-icons/io5";
 import { IoMdEye } from "react-icons/io";
 import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SigninWithGoogle from "../shared/SigninWithGoogle";
 import { useAuth } from "../../hooks";
+import { toast } from "react-toastify";
 
 const Login = () => {
   // state for showing password
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const { signinUser } = useAuth();
 
@@ -31,11 +33,18 @@ const Login = () => {
     signinUser(email, password)
       .then((currentUser) => {
         if (currentUser) {
-          alert("User logged in successfully");
+          navigate("/");
+          toast?.success("User logged in successfully", {
+            position: "top-right",
+            autoClose: 3000,
+          });
         }
       })
       .catch((err) => {
-        alert(err.message);
+        toast?.error(err.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
       });
   };
 
@@ -111,7 +120,7 @@ const Login = () => {
         </form>
         {/* google sign in */}
 
-        <SigninWithGoogle>Signin With Google</SigninWithGoogle>
+        <SigninWithGoogle toastMessage={"Login successfull"}>Signin With Google</SigninWithGoogle>
         <p className="text-xs text-center sm:px-6 dark:text-gray-600">
           Don't have an account?
           <Link rel="noopener noreferrer" to={"/signup"} className="underline dark:text-gray-800">

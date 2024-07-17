@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import Logo from "../../assets/images/logo.jpeg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
+import { toast } from "react-toastify";
 
 const Nav = () => {
   //  get user from context
@@ -53,6 +54,16 @@ const Nav = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // function for signing out user
+
+  const handleSignout = () => {
+    singoutUser();
+    toast?.success("User logged out successfully", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  };
 
   return (
     <div
@@ -112,7 +123,7 @@ const Nav = () => {
                   {user?.photoURL ? (
                     <img
                       onClick={() => setShowOptions((prev) => !prev)}
-                      className="md:h-7 md:w-7 h-6 w-6  w-auto rounded-full cursor-pointer"
+                      className="md:h-10 md:w-10 h-6 w-6  rounded-full cursor-pointer"
                       src={user?.photoURL}
                       alt=""
                     />
@@ -139,7 +150,7 @@ const Nav = () => {
                     Settings
                   </li>
                   <li
-                    onClick={() => singoutUser()}
+                    onClick={handleSignout}
                     className=" px-3 py-2 rounded-md drop-shadow-md border border-gray-400  cursor-pointer transition-all hover:scale-95 duration-150"
                   >
                     Logout
@@ -147,13 +158,17 @@ const Nav = () => {
                 </ul>
               </div>
 
-              <Link to={"/login"}>
-                <button className=" pr-4 border-r-2 ">Login</button>
-              </Link>
-              {/* <p className="text-gray-400">|</p> */}
-              <Link to={"/signup"}>
-                <button className="">Signup</button>
-              </Link>
+              {!user && (
+                <>
+                  <Link to={"/login"}>
+                    <button className=" pr-4 border-r-2 ">Login</button>
+                  </Link>
+                  {/* <p className="text-gray-400">|</p> */}
+                  <Link to={"/signup"}>
+                    <button className="">Signup</button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

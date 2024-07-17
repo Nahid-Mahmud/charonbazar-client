@@ -1,7 +1,11 @@
+import { toast } from "react-toastify";
 import { useAuth } from "../../hooks";
+import { useNavigate } from "react-router-dom";
 
-const SigninWithGoogle = ({ children }) => {
+const SigninWithGoogle = ({ children, toastMessage }) => {
   const { signinWithGoogle } = useAuth();
+
+  const navigate = useNavigate();
 
   // google signin
 
@@ -10,11 +14,19 @@ const SigninWithGoogle = ({ children }) => {
       .then((user) => {
         // console.log("user", user);
         if (user) {
-          alert("User logged in successfully");
-        }npm 
+          navigate("/");
+          toast?.success(toastMessage, {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
       })
       .catch((err) => {
         console.log(err.message);
+        toast?.error(err.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
       });
   };
   return (
