@@ -7,6 +7,7 @@ import SigninWithGoogle from "../shared/SigninWithGoogle";
 import { useAuth } from "../../hooks";
 import { toast } from "react-toastify";
 import Spinner from "../shared/spinner/Spinner";
+import { usePublicApi } from "../../hooks/usePublicApi";
 
 const Signup = () => {
   // state for showing password
@@ -31,6 +32,8 @@ const Signup = () => {
   const handleShowHidePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const publicApi = usePublicApi();
 
   const handleSignup = (event) => {
     event.preventDefault();
@@ -59,6 +62,21 @@ const Signup = () => {
 
     signupUser(email, password)
       .then((currentUser) => {
+        publicApi
+          .post("/users", {
+            name,
+            email,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            toast.error(`${err?.message}`, {
+              position: "top-right",
+              autoClose: 3000,
+            });
+          });
+
         navigate("/");
         toast?.success("User registered successfully", {
           position: "top-right",
