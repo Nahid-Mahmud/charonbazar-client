@@ -133,7 +133,7 @@ const Nav = () => {
             </div>
 
             {/* Icons and Buttons Section */}
-            <div className="flex relative items-center justify-center gap-5 ">
+            <div className="flex relative items-center justify-center md:gap-5 gap-2 ">
               <FaCartArrowDown className="md:text-3xl text-2xl cursor-pointer" />
               {user && (
                 <div ref={ref}>
@@ -178,7 +178,7 @@ const Nav = () => {
               {!user && (
                 <>
                   <Link to={"/login"}>
-                    <button className=" pr-4 border-r-2 ">Login</button>
+                    <button className=" md:pr-4 pr-2 border-r-2 ">Login</button>
                   </Link>
                   {/* <p className="text-gray-400">|</p> */}
                   <Link to={"/signup"}>
