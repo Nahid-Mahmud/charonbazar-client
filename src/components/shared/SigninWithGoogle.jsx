@@ -27,8 +27,9 @@ const SigninWithGoogle = ({ children, toastMessage }) => {
               name: user?.user?.displayName,
               photoURL: user?.user?.photoURL,
             })
-            .then(() => {
-              console.log("User added to database");
+            .then((res) => {
+              // console.log("User added to database");
+              // console.log(res);
             })
             .catch((err) => {
               // console.log(err);

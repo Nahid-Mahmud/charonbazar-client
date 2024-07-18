@@ -11,12 +11,17 @@ import {
 import { AuthContext } from "../contexts";
 import { app } from "../config/firebaseConfig";
 import { useEffect, useState } from "react";
+import { usePublicApi } from "../hooks/usePublicApi";
 // Auth for firebase
 const auth = getAuth(app);
 // google provider
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
+  // axios public api
+
+  const publicApi = usePublicApi();
+
   // state for user loading
   const [userLoading, setUserLoading] = useState(true);
   // state for holding user
@@ -61,12 +66,24 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setUserLoading(false);
+
+      if (currentUser) {
+        publicApi.post("/jwt", { email: currentUser.email }).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+            setUserLoading(false);
+          }
+        });
+      } else {
+        localStorage.removeItem("token");
+        setUserLoading(false);
+      }
+
       console.log("user form observer", currentUser);
     });
 
     return () => unSubscribe();
-  }, []);
+  }, [publicApi]);
 
   const autContextValues = {
     signupUser,
