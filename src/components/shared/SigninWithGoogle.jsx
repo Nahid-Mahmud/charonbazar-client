@@ -7,16 +7,17 @@ import { usePublicApi } from "../../hooks/usePublicApi";
 
 const SigninWithGoogle = ({ children, toastMessage }) => {
   const publicApi = usePublicApi();
-  const { signinWithGoogle } = useAuth();
+  const { signinWithGoogle,googleLoading, setGoogleLoading } = useAuth();
 
-  const [googleLoading, setGoogleLoading] = useState(false);
+
+
 
   const navigate = useNavigate();
 
   // google signin
 
   const handleGoogleSignin = () => {
-    setGoogleLoading(true);
+
     signinWithGoogle()
       .then((user) => {
         // console.log("user", user);
@@ -35,7 +36,7 @@ const SigninWithGoogle = ({ children, toastMessage }) => {
               // console.log(err);
             });
 
-          setGoogleLoading(false);
+
           navigate("/");
           toast?.success(toastMessage, {
             position: "top-right",

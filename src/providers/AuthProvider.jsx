@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
 
   // state for user loading
   const [userLoading, setUserLoading] = useState(true);
+  const [googleLoading, setGoogleLoading] = useState(false);
   // state for holding user
   const [user, setUser] = useState(null);
 
@@ -42,6 +43,7 @@ const AuthProvider = ({ children }) => {
   // signin with google
 
   const signinWithGoogle = () => {
+    setGoogleLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -72,11 +74,13 @@ const AuthProvider = ({ children }) => {
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             setUserLoading(false);
+            setGoogleLoading(false);
           }
         });
       } else {
         localStorage.removeItem("token");
         setUserLoading(false);
+        setGoogleLoading(false);
       }
 
       console.log("user form observer", currentUser);
@@ -94,6 +98,8 @@ const AuthProvider = ({ children }) => {
     user,
     userLoading,
     setUserLoading,
+    googleLoading,
+    setGoogleLoading,
   };
   return <AuthContext.Provider value={autContextValues}>{children}</AuthContext.Provider>;
 };
