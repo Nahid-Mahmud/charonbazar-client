@@ -5,6 +5,8 @@ import Logo from "../../assets/images/logo.jpeg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Nav = () => {
   //  get user from context
@@ -32,7 +34,6 @@ const Nav = () => {
         setscroll(false);
       }
     };
-
     window.addEventListener("scroll", handleScrool);
 
     return () => {
@@ -147,7 +148,7 @@ const Nav = () => {
                   ) : (
                     <CgProfile
                       onClick={() => setShowOptions((prev) => !prev)}
-                      className="md:text-3xl text-2xl cursor-pointer"
+                      className="md:text-3xl text-black text-2xl cursor-pointer"
                     />
                   )}
                 </div>

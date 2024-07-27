@@ -61,6 +61,7 @@ const Login = () => {
 
   return (
     <div className="h-screen items-center pt-20 flex flex-wrap flex-row-reverse justify-center gap-10">
+      {/* lttie animation */}
       <div className="hidden lg:inline-flex">
         <Player
           autoplay
